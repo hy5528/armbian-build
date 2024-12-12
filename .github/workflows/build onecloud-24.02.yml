@@ -19,16 +19,7 @@ jobs:
       - name: Checkout armbian/build
         run: |
            git clone --depth=1 --branch=main https://github.com/hy5528/s812-armbian
-      - name: Patch Mele A200
-        run: |          
-          cat <<EOF > ./s812-armbian/config/boards/onecloud.conf
-          BOARD_NAME="OneCloud"
-          BOARDFAMILY="meson"
-          BOARD_MAINTAINER=""
-          HAS_VIDEO_OUTPUT="yes"
-          BOOTCONFIG="none"
-          KERNEL_TARGET="legacy,current,edge"
-          EOF
+   
       - name: Build
         run: |
           cd s812-armbian
