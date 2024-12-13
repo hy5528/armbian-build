@@ -8,6 +8,17 @@ jobs:
   build:
     runs-on: ubuntu-20.04
 
+      
+    steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          # 这个值是保留给系统的空间大小，之前设置太小，总会在安装依赖或者编译过程中报设备空间不足的错误而导致编译失败
+          root-reserve-mb: 8096
+          swap-size-mb: 2266
+          remove-dotnet: 'true'
+          remove-android: 'true'
+
       - name: Install key 
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E
@@ -63,7 +74,6 @@ jobs:
             sha256sum "$f" | tee -a sha256sum
             xz --threads=0 --compress "$f"
           done
-
       - name: Generate release informations
         run: |
           cat <<EOF | sed -E 's/^  //' | tee Release.md
