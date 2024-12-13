@@ -15,6 +15,9 @@ jobs:
       - name: Install key 
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E
+     - name: Install gcc-arm
+        run: |
+          sudo apt-get install gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf
           
       - name: Checkout armbian/build
         run: |
@@ -23,21 +26,7 @@ jobs:
       - name: Build
         run: |
           cd Build-Armbian-OneCloud
-          # Don't update remote cache
-          ./compile.sh ALLOW_ROOT=yes \
-              BOARD=onecloud \
-              BRANCH=${{ matrix.BRANCH }} \
-              RELEASE=bookworm \
-              KERNEL_CONFIGURE=no \
-              BUILD_MINIMAL=yes  \
-              BUILD_DESKTOP=no \
-              DESKTOP_ENVIRONMENT=${{ matrix.DESKTOP_ENVIRONMENT }} \
-              DESKTOP_ENVIRONMENT_CONFIG_NAME=${{ matrix.DESKTOP_ENVIRONMENT_CONFIG_NAME }} \
-              DESKTOP_APPGROUPS_SELECTED=${{ matrix.DESKTOP_APPGROUPS_SELECTED }} \
-              EXPERT=yes \
-              SKIP_EXTERNAL_TOOLCHAINS=yes \
-              CLEAN_LEVEL= \
-              USE_CCACHE=no \
+          ./compile.sh build BOARD=onecloud BRANCH=legacy BUILD_DESKTOP=no BUILD_MINIMAL=yes COMPRESS_OUTPUTIMAGE=img EXTRAWIFI=yes  KERNEL_CONFIGURE=no  DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna RELEASE=jammy BOOTSIZE=64  SYNC_CLOCK=no INCLUDE_HOME_DIR=yes
           sudo chown $(id -u):$(id -g) -R output/
 
       - name: Install Dependents
