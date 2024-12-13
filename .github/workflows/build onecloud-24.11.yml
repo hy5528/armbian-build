@@ -24,9 +24,6 @@ jobs:
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E
 
-      - name: Install key 
-        run: |
-          sudo apt-get install gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf
           
       - name: Checkout armbian/build
         run: |
