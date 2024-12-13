@@ -28,10 +28,10 @@ jobs:
               ALLOW_ROOT=yes \
               BOARD=onecloud \
               BRANCH=${{ matrix.BRANCH }} \
-              RELEASE=${{ matrix.RELEASE }} \
+              RELEASE=bookworm \
               KERNEL_CONFIGURE=no \
-              BUILD_MINIMAL=${{ matrix.TYPE == 'minimal' && 'yes' || 'no' }} \
-              BUILD_DESKTOP=${{ matrix.TYPE == 'desktop' && 'yes' || 'no' }} \
+              BUILD_MINIMAL=yes  \
+              BUILD_DESKTOP=no \
               DESKTOP_ENVIRONMENT=${{ matrix.DESKTOP_ENVIRONMENT }} \
               DESKTOP_ENVIRONMENT_CONFIG_NAME=${{ matrix.DESKTOP_ENVIRONMENT_CONFIG_NAME }} \
               DESKTOP_APPGROUPS_SELECTED=${{ matrix.DESKTOP_APPGROUPS_SELECTED }} \
