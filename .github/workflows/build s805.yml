@@ -94,7 +94,7 @@ jobs:
       matrix:
         BRANCH:
           - edge
-          - current
+
 
     steps:
       - name: Import env
