@@ -24,8 +24,7 @@ jobs:
         run: |
           cd Build-Armbian-OneCloud
           # Don't update remote cache
-          ./compile.sh build \
-              ALLOW_ROOT=yes \
+          ./compile.sh ALLOW_ROOT=yes \
               BOARD=onecloud \
               BRANCH=${{ matrix.BRANCH }} \
               RELEASE=bookworm \
