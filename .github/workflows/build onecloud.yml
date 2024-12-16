@@ -25,8 +25,8 @@ jobs:
           # Don't update remote cache
           sudo mkdir /toolchain/
           wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
-          sudo cp gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz build/toolchain/
-          sudo tar -vxf build/toolchain/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
+          sudo cp gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz /toolchain/ -f
+          sudo tar -vxf /toolchain/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
           ./compile.sh build BOARD=onecloud BRANCH=legacy BUILD_DESKTOP=no BUILD_MINIMAL=yes COMPRESS_OUTPUTIMAGE=img EXTRAWIFI=yes  KERNEL_CONFIGURE=no  DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna RELEASE=jammy BOOTSIZE=64  SYNC_CLOCK=no INCLUDE_HOME_DIR=yes  KERNEL_COMPILER=build/toolchain/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-
           sudo chown $(id -u):$(id -g) -R output/
 
