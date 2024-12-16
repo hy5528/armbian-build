@@ -18,7 +18,7 @@ jobs:
            
       - name: Build
         run: |
-          cd cd build/userpatches
+          cd build/userpatches
           # Don't update remote cache
           wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
       
