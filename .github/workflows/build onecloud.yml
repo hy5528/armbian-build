@@ -20,9 +20,9 @@ jobs:
            cd build
            wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel/gcc-arm-9.2-2019.12-aarch64-arm-none-linux-gnueabihf.tar.xz
            sudo mkdir /usr/local/arm
-           sudo cp gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz /usr/local/arm/ -f
+           sudo cp gcc-arm-9.2-2019.12-aarch64-arm-none-linux-gnueabihf.tar.xz /usr/local/arm/ -f
            cd /usr/local/arm/
-           sudo tar -vxf gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
+           sudo tar -vxf gcc-arm-9.2-2019.12-aarch64-arm-none-linux-gnueabihf.tar.xz
            
       - name: Build
         run: |
