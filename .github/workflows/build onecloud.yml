@@ -18,7 +18,7 @@ jobs:
       - name: Checkout armbian/build
         run: |
            git clone --depth=1 --branch=main https://github.com/mofeng-git/build
-    - name: gcc-arm
+      - name: gcc-arm
         run: |
            sudo mkdir /build/toolchain/
            wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
