@@ -11,7 +11,23 @@ jobs:
       
     steps:
  
-    
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          # 这个值是保留给系统的空间大小，之前设置太小，总会在安装依赖或者编译过程中报设备空间不足的错误而导致编译失败
+          root-reserve-mb: 8096
+          swap-size-mb: 2266
+          remove-dotnet: 'true'
+          remove-android: 'true'
+
+      - name: Install key 
+        run: | 
+           wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
+           sudo mkdir /usr/local/arm
+           sudo cp gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz /usr/local/arm/ -f
+           cd /usr/local/arm/
+           sudo tar -vxf gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
+           
       - name: Checkout armbian/build
         run: |
            git clone --depth=1 --branch=main https://github.com/mofeng-git/build
@@ -20,15 +36,7 @@ jobs:
       - name: Build
         run: |
           cd build
-          # Don't update remote cache
-          wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
-          sudo mkdir /usr/local/arm
-          sudo cp gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz /usr/local/arm/ -f
-
-          cd /usr/local/arm/
-          sudo tar -vxf gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
-          cd /home/runner/work/armbian-build/armbian-build/build
-        
+          # Don't update remote cach
           ./compile.sh build BOARD=onecloud BRANCH=legacy BUILD_DESKTOP=no BUILD_MINIMAL=yes COMPRESS_OUTPUTIMAGE=img EXTRAWIFI=yes  KERNEL_CONFIGURE=no  DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna RELEASE=jammy BOOTSIZE=64  SYNC_CLOCK=no INCLUDE_HOME_DIR=yes  KERNEL_COMPILER=/home/runner/work/armbian-build/armbian-build/usr/local/arm/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-
           sudo chown $(id -u):$(id -g) -R output/
 
