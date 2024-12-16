@@ -131,6 +131,7 @@ jobs:
         BRANCH:
           - edge
           - current
+          - legacy
 
     steps:
       - name: Import env
