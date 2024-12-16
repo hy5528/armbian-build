@@ -26,7 +26,7 @@ jobs:
            wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
            sudo cp gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz /code/toolchain/
            sudo tar -vxf /code/toolchain/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
-
+           sudo chmod -R 777 /code/toolchain/
            
       - name: Build
         run: |
