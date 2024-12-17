@@ -22,7 +22,7 @@ jobs:
           sudo chmod 777 gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
           sudo tar -vxf gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf.tar.xz
           sudo chmod -R 777 /home/runner/work/armbian-build/armbian-build/build/tools/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf
-          
+          sudo chmod 777 /home/runner/work/armbian-build/armbian-build/build/tools/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-gcc
       - name: Build
         run: |
           cd build
