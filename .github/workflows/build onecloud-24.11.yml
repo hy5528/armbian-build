@@ -16,7 +16,7 @@ jobs:
           
       - name: Checkout armbian/build
         run: |
-           git clone --depth=1 --branch=main https://github.com/hy5528/Build-Armbian-OneCloud
+           git clone --depth=1 --branch=v24.11 https://github.com/hy5528/Build-Armbian-OneCloud
       
       - name: Build
         run: |
