@@ -21,7 +21,8 @@ jobs:
         run: |
           cd Build-Armbian
           # Don't update remote cache
-          sudo ./compile.sh BOARD=onecloud BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,gpg,img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
+         ./compile.sh BOARD=onecloud BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no EXPERT=yes COMPRESS_OUTPUTIMAGE=sha,gpg,xz 
+         
           sudo chown $(id -u):$(id -g) -R output/
       - name: Install Dependents
         run: |
