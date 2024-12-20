@@ -21,7 +21,7 @@ jobs:
         run: |
           cd build-armbian-custom
           # Don't update remote cache
-          ./compile.sh BOARD=aml-s812 BRANCH=current RELEASE=bullseye BUILD_MINIMAL=no BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,gpg,img USE_TORRENT=no
+          ./compile.sh BOARD=aml-s812 BRANCH=current RELEASE=jammy BUILD_MINIMAL=no BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,gpg,img USE_TORRENT=no
           sudo chown $(id -u):$(id -g) -R output/
       - name: Install Dependents
         run: |
