@@ -6,14 +6,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
       
     steps:
-
-      - name: Install key 
-        run: |
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E
           
       - name: Checkout armbian/build
         run: |
