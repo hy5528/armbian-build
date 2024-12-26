@@ -18,7 +18,11 @@ jobs:
       - name: Checkout armbian/build
         run: |
            git clone --depth=1 --branch=master https://github.com/hy5528/s805-armbian-build
-      
+      - name: "Copy userpatches to build folder"
+        shell: bash
+        run: |
+          rsync -av current/userpatches/. build/userpatches/
+          
       - name: Build
         run: |
           cd s805-armbian-build
