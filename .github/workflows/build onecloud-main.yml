@@ -16,6 +16,14 @@ jobs:
       - name: Checkout armbian/build
         run: |
            git clone --depth=1 --branch=main https://github.com/hy5528/build
+           
+      - name: "Checkout current repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          clean: false
+          path: current
+          
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
