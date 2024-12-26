@@ -17,7 +17,7 @@ jobs:
     
       - name: Checkout armbian/build
         run: |
-           git clone --depth=1 --branch=master https://github.com/hy5528/ArmbianOS-Builder
+           git clone --depth=1 --branch=main https://github.com/hy5528/ArmbianOS-Builder
 
       - name: "Checkout current repository"
         uses: actions/checkout@v4
