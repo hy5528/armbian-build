@@ -76,22 +76,21 @@ jobs:
             sha256sum "$f" | tee -a sha256sum
             xz --threads=0 --compress "$f"
           done
-     - name: Upload artifacts
-       if: inputs.artifacts == 'true'
-       uses: actions/upload-artifact@v3
-       with:
-         name: ${{ inputs.board }}_${{ inputs.distro }}_${{ inputs.flavor }}
-         path: ./build/output/images/*
-     - name: Upload
-       if: inputs.release-id != '' && inputs.github-token != ''
-       uses: xresloader/upload-to-github-release@v1
-       env:
-           GITHUB_TOKEN: ${{ inputs.github-token }}
-       with:
-         release_id: ${{ inputs.release-id }}
-         file: ./build/output/images/*
-     - name: Rollback release
-       if: failure() && inputs.release-id != '' && inputs.github-token != ''
+      - name: Generate release informations
+        run: |
+          cat <<EOF | sed -E 's/^  //' | tee Release.md
+            $(cat sha256sum | awk '{printf "%s: `%s`\n", $2, $1}')
+          EOF
+    - name: Upload
+      if: inputs.release-id != '' && inputs.github-token != ''
+      uses: xresloader/upload-to-github-release@v1
+      env:
+          GITHUB_TOKEN: ${{ inputs.github-token }}
+      with:
+        release_id: ${{ inputs.release-id }}
+        file: ./build/output/images/*
+    - name: Rollback release
+      if: failure() && inputs.release-id != '' && inputs.github-token != ''
       uses: author/action-rollback@stable
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
