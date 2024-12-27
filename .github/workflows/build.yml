@@ -1,4 +1,4 @@
-name: build onecloud-main
+name: build onecloud
 
 on:
   repository_dispatch:
