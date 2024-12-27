@@ -81,18 +81,18 @@ jobs:
           cat <<EOF | sed -E 's/^  //' | tee Release.md
             $(cat sha256sum | awk '{printf "%s: `%s`\n", $2, $1}')
           EOF
-     - name: Upload
-       if: inputs.release-id != '' && inputs.github-token != ''
-       uses: xresloader/upload-to-github-release@v1
-       env:
-           GITHUB_TOKEN: ${{ inputs.github-token }}
-       with:
-         release_id: ${{ inputs.release-id }}
-         file: ./build/output/images/*
-     - name: Rollback release
-       if: failure() && inputs.release-id != '' && inputs.github-token != ''
-       uses: author/action-rollback@stable
-       env:
-         GITHUB_TOKEN: ${{ inputs.github-token }}
-       with:
-         release_id: ${{ inputs.release-id }}
+      - name: Upload
+        if: inputs.release-id != '' && inputs.github-token != ''
+        uses: xresloader/upload-to-github-release@v1
+        env:
+            GITHUB_TOKEN: ${{ inputs.github-token }}
+        with:
+          release_id: ${{ inputs.release-id }}
+          file: ./build/output/images/*
+      - name: Rollback release
+        if: failure() && inputs.release-id != '' && inputs.github-token != ''
+        uses: author/action-rollback@stable
+        env:
+          GITHUB_TOKEN: ${{ inputs.github-token }}
+        with:
+          release_id: ${{ inputs.release-id }}
