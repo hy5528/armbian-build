@@ -58,7 +58,7 @@ jobs:
 
       - name: Extract boot and rootfs partitions
         run: |
-          diskimg=$(ls onecloud-armbian-build/.tmp/image*/*.img)
+          diskimg=$(ls onecloud-armbian-build/.tmp/*/*.img)
           loop=$(sudo losetup --find --show --partscan $diskimg)
           sudo img2simg ${loop}p1 burn/boot.simg
           sudo img2simg ${loop}p2 burn/rootfs.simg
@@ -77,7 +77,7 @@ jobs:
           VERIFY:rootfs:normal:rootfs.VERIFY
           EOF
 
-          prefix=$(ls onecloud-armbian-build/.tmp/image*/*.img | sed 's/\.img$//')
+          prefix=$(ls onecloud-armbian-build/.tmp/*/*.img | sed 's/\.img$//')
           burnimg=${prefix}.burn.img
           ./AmlImg pack $burnimg burn/
 
@@ -101,4 +101,4 @@ jobs:
           append_body: true
           body_path: Release.md
           files: |
-            onecloud-armbian-build/.tmp/image*/*
+            onecloud-armbian-build/.tmp/*/*
