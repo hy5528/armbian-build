@@ -37,13 +37,13 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-         # rsync -av current/userpatches/. onecloud-armbian-build/userpatches/
+          rsync -av current/userpatches/. onecloud-armbian-build/userpatches/
     
       - name: Build
         run: |
           cd onecloud-armbian-build
           # Don't update remote cache
-          sudo ./compile.sh BOARD=onecloud BRANCH=edge RELEASE=bullseye BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
+          sudo ./compile.sh BOARD=onecloud BRANCH=edge RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
           sudo chown $(id -u):$(id -g) -R output/
 
       - name: Install Dependents
