@@ -36,7 +36,8 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-          rsync -av current/userpatches/. s805-armbian-build/userpatches/
+          sudo rm -r /s805-armbian-build/lib
+          rsync -av current/patch/. s805-armbian-build/
           
       - name: Build
         run: |
