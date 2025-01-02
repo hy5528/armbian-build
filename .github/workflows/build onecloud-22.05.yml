@@ -1,4 +1,4 @@
-name: build onecloud-22.05
+name: build onecloud
 
 on:
   repository_dispatch:
@@ -17,7 +17,7 @@ jobs:
     
       - name: Checkout armbian/build
         run: |
-           git clone --depth=1 --branch=main https://github.com/hy5528/build
+           git clone --depth=1 --branch=main https://github.com/hy5528/builds
 
       - name: "Checkout current repository"
         uses: actions/checkout@v4
@@ -29,12 +29,12 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-          sudo rm -r build/lib
-          rsync -av current/patch/. build/
+          sudo rm -r builds/lib
+          rsync -av current/patch/. builds/
     
       - name: Build
         run: |
-          cd build
+          cd builds
           # Don't update remote cache
           sudo ./compile.sh BOARD=onecloud BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
           sudo chown $(id -u):$(id -g) -R output/
