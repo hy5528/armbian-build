@@ -10,7 +10,6 @@ jobs:
 
       
     steps:
-      
       - name: Install key 
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E  
@@ -28,8 +27,7 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-          sudo rm -r build/lib     
-          rsync -av current/patch/. build/
+          rsync -av current/userpatches/. build/userpatches/
           
       - name: Build
         run: |
