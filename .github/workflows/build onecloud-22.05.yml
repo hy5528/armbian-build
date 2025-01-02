@@ -15,9 +15,9 @@ jobs:
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E
     
-      - name: Checkout armbian/build
+      - name: Checkout armbian
         run: |
-           git clone --depth=1 --branch=main https://github.com/raysworld/onecloud-armbian-build
+           git clone --depth=1 --branch=master https://github.com/raysworld/onecloud-armbian-build
 
       - name: "Checkout current repository"
         uses: actions/checkout@v4
