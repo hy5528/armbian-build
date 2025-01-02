@@ -18,7 +18,7 @@ jobs:
     
       - name: Checkout armbian/build
         run: |
-           git clone --depth=1 --branch=main https://github.com/bananapi-codehunterz-world/BPI-ArmbianOS-Builder
+           git clone --depth=1 --branch=main https://github.com/hy5528/ArmbianOS-Builder
 
       - name: "Checkout current repository"
         uses: actions/checkout@v4
@@ -30,12 +30,12 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-          sudo rm -r BPI-ArmbianOS-Builder/lib
-          rsync -av current/patch/. BPI-ArmbianOS-Builder/
+          sudo rm -r ArmbianOS-Builder/lib
+          rsync -av current/patch/. ArmbianOS-Builder/
           
       - name: Build
         run: |
-          cd BPI-ArmbianOS-Builder
+          cd ArmbianOS-Builder
           # Don't update remote cache
           sudo ./compile.sh BOARD=onecloud BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,gpg,img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
           sudo chown $(id -u):$(id -g) -R output/
@@ -60,7 +60,7 @@ jobs:
 
       - name: Extract boot and rootfs partitions
         run: |
-          diskimg=$(ls BPI-ArmbianOS-Builder/output/images/*.img)
+          diskimg=$(ls ArmbianOS-Builder/output/images/*.img)
           loop=$(sudo losetup --find --show --partscan $diskimg)
           sudo img2simg ${loop}p1 burn/boot.simg
           sudo img2simg ${loop}p2 burn/rootfs.simg
@@ -79,13 +79,13 @@ jobs:
           VERIFY:rootfs:normal:rootfs.VERIFY
           EOF
 
-          prefix=$(ls BPI-ArmbianOS-Builder/output/images/*.img | sed 's/\.img$//')
+          prefix=$(ls ArmbianOS-Builder/output/images/*.img | sed 's/\.img$//')
           burnimg=${prefix}.burn.img
           ./AmlImg pack $burnimg burn/
 
       - name: Hash and compress images
         run: |
-          for f in BPI-ArmbianOS-Builder/output/images/*.img; do
+          for f in ArmbianOS-Builder/output/images/*.img; do
             sha256sum "$f" | tee -a sha256sum
             xz --threads=0 --compress "$f"
           done
@@ -103,4 +103,4 @@ jobs:
           append_body: true
           body_path: Release.md
           files: |
-            BPI-ArmbianOS-Builder/output/images/*
+            ArmbianOS-Builder/output/images/*
