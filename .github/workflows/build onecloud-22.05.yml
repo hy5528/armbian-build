@@ -17,7 +17,7 @@ jobs:
     
       - name: Checkout armbian/build
         run: |
-           git clone --depth=1 --branch=main https://github.com/hy5528/builds
+           git clone --depth=1 --branch=main https://github.com/hy5528/build.git
 
       - name: "Checkout current repository"
         uses: actions/checkout@v4
@@ -29,12 +29,12 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-          sudo rm -r builds/lib
-          rsync -av current/patch/. builds/
+          sudo rm -r build/lib
+          rsync -av current/patch/. build/
     
       - name: Build
         run: |
-          cd builds
+          cd build
           # Don't update remote cache
           sudo ./compile.sh BOARD=onecloud BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
           sudo chown $(id -u):$(id -g) -R output/
