@@ -130,10 +130,10 @@ jobs:
             BUILD_MINIMAL="yes"
           elif [[ "${{ inputs.armbian_ui }}" == server ]]; then
             BUILD_DESKTOP="no"
-            BUILD_MINIMAL="no"
+            BUILD_MINIMAL="yes"
           else
-            BUILD_DESKTOP="yes"
-            BUILD_MINIMAL="no"
+            BUILD_DESKTOP="no"
+            BUILD_MINIMAL="yes"
             DESKTOP_ENVIRONMENT="${{ inputs.armbian_ui }}"
             DESKTOP_APPGROUPS_SELECTED="${{ inputs.armbian_app_groups }}"
             DESKTOP_ENVIRONMENT_CONFIG_NAME="config_base"
