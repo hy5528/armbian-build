@@ -144,7 +144,7 @@ jobs:
           git checkout ${{ inputs.armbian_branch }}
 
           # execute build command
-          ./compile.sh "${{ inputs.armbian_target }}" \
+          sudo ./compile.sh "${{ inputs.armbian_target }}" \
           BOARD="${{ inputs.armbian_board }}" \
           BRANCH="${{ inputs.armbian_kernel_branch }}" \
           RELEASE="${{ inputs.armbian_release }}" \
