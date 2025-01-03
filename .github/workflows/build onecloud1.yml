@@ -16,7 +16,7 @@ jobs:
     
       - name: Checkout armbian
         run: |
-           git clone --depth=1 --branch=master https://github.com/raysworld/onecloud-armbian-build
+           git clone --depth=1 --branch=master https://github.com/hy5528/onecloud-armbian-build
 
 
     
