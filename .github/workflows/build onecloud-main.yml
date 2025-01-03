@@ -11,7 +11,9 @@ on:
       repo_branch:
         description: 'REPO BRANCH'
         required: true
-        
+        options:
+        - v23.11
+        - main
         default: 'main'
 jobs:
   build:
@@ -22,9 +24,7 @@ jobs:
       - name: Install key 
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E  
-      - name: Checkout armbian
-        run: |
-          git clone --depth=1 --branch=main https://github.com/armbian/build
+
            
       - name: "Checkout current repository"
         uses: actions/checkout@v4
