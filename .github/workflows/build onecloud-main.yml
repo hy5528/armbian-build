@@ -28,15 +28,15 @@ jobs:
         shell: bash
         run: |
           rsync -av current/userpatches/. build/userpatches/
-     - name: Remove existing build folder
-       run: |
-         if [ -d "build" ]; then
-           echo "Removing existing build folder"
-           rm -rf build
-         else
-           echo "No existing build folder found"
-         fi
-          
+     
+      - name: Remove existing build folder
+        run: |
+          if [ -d "build" ]; then
+            echo "Removing existing build folder"
+            rm -rf build
+          else
+            echo "No existing build folder found"
+          fi
       - name: Build
         run: |
           cd build
