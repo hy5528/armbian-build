@@ -78,7 +78,7 @@ jobs:
           VERIFY:rootfs:normal:rootfs.VERIFY
           EOF
 
-          prefix=$(ls onecloud-armbian-build/images/*.img | sed 's/\.img$//')
+          prefix=$(ls onecloud-armbian-build/output/images/*.img | sed 's/\.img$//')
           burnimg=${prefix}.burn.img
           ./AmlImg pack $burnimg burn/
 
