@@ -9,8 +9,8 @@ on:
         required: true
         default: 'https://github.com/armbian/build.git'
       armbian_branch:
+        type: choic
         description: "Choose framework branch"
-        required: false
         options:
         - v23.11
         - main
