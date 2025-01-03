@@ -84,7 +84,7 @@ jobs:
 
       - name: Hash and compress images
         run: |
-          for f in build/output/images/*.img; do
+          for f in onecloud-armbian-build/output/images/*.img; do
             sha256sum "$f" | tee -a sha256sum
             xz --threads=0 --compress "$f"
           done
