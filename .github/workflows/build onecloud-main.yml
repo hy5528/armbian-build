@@ -4,13 +4,13 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      repo_url:
-        description: 'REPO URL'
-        required: true
-        default: 'https://github.com/armbian/build.git'
-      repo_branch:
+      armbian_repo:
+        description: "Choose framework repository"
+        required: false
+        default: "armbian/build"
+      armbian_branch:
         type: choice
-        description: 'REPO BRANCH'
+        description: 'Choose framework branch'
         options:
         - v23.11
         - main
