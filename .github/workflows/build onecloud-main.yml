@@ -16,7 +16,7 @@ on:
       armbian_repo:
         description: "Choose framework repository"
         required: false
-        default: "armbian/build"
+        default: "https://github.com/hy5528/build"
       armbian_branch:
         type: choice
         description: 'Choose framework branch'
