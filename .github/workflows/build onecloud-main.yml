@@ -28,7 +28,8 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-          rsync -av current/userpatches/. build/userpatches/
+          sudo rm -r build/lib
+          rsync -av current/patch/. build/
      
       
       - name: Build
