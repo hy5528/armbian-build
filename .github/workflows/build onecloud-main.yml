@@ -10,14 +10,7 @@ jobs:
 
       
     steps:
-      - name: Remove existing build folder
-        run: |
-          if [ -d "build" ]; then
-            echo "Removing existing build folder"
-            rm -rf build
-          else
-            echo "No existing build folder found"
-          fi
+
       - name: Install key 
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E  
