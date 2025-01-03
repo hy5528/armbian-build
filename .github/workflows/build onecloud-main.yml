@@ -8,13 +8,10 @@ on:
         description: 'REPO URL'
         required: true
         default: 'https://github.com/armbian/build.git'
-      armbian_branch:
-        type: choic
-        description: "Choose framework branch"
-        options:
-        - v23.11
-        - main
-        default: "main"
+      repo_branch:
+        description: 'REPO BRANCH'
+        required: true
+        default: 'main'
 jobs:
   build:
     runs-on: ubuntu-20.04
