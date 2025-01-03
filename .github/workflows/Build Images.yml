@@ -19,6 +19,9 @@ on:
       armbian_branch:
         description: "Choose framework branch"
         required: false
+        options:
+        - legacy
+        - main
         default: "main"
 
       armbian_kernel_branch:
@@ -29,7 +32,7 @@ on:
         - current
         - edge
         - vendor
-        default: 'edge'
+        default: 'jammy'
 
       armbian_release:
         type: choice
@@ -45,15 +48,8 @@ on:
         type: choice
         description: 'Hardware platform'
         options:
-        - orangepi5
-        - orangepi5-plus
-        - khadas-edge2
-        - nanopi-r6s
-        - nanopi-r6c
-        - nanopi-m6
-        - armsom-sige5
-        - rpi4b
-        - uefi-x86
+        - onecloud
+       
 
       armbian_ui:
         type: choice
@@ -61,11 +57,7 @@ on:
         options:
         - minimal
         - server
-        - xfce
-        - gnome
-        - kde-neon
-        - kde-plasma
-        default: 'server'
+        default: 'minimal'
 
       armbian_app_groups:
         description: "Select app groups"
@@ -88,7 +80,7 @@ permissions:
 jobs:
   build:
     name: "Build Armbian"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Free Github Runner
         uses: descriptinc/free-disk-space@main
@@ -125,7 +117,8 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-          rsync -av current/userpatches/. build/userpatches/
+          sudo rm -r build/lib     
+          rsync -av current/patch/. build/
 
       - name: "Build artifacts"
         shell: bash
