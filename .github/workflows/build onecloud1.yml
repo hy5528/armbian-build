@@ -1,4 +1,5 @@
-name: build onecloud1
+name: build onecloud-22.05
+
 on:
   repository_dispatch:
   workflow_dispatch:
@@ -16,9 +17,19 @@ jobs:
     
       - name: Checkout armbian
         run: |
-           git clone --depth=1 --branch=master https://github.com/hy5528/onecloud-armbian-build
+           git clone --depth=1 --branch=master https://github.com/raysworld/onecloud-armbian-build
 
-
+      - name: "Checkout current repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          clean: false
+          path: current
+          
+      - name: "Copy userpatches to build folder"
+        shell: bash
+        run: |
+          rsync -av current/userpatches/. onecloud-armbian-build/userpatches/
     
       - name: Build
         run: |
@@ -86,7 +97,7 @@ jobs:
       - name: Upload to release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: Armbian_Onecloud_jammy_5.9.0-11
+          tag_name: Armbian_Onecloud_jammy_5.9.0-docker1
           append_body: true
           body_path: Release.md
           files: |
