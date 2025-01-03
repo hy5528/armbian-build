@@ -32,7 +32,7 @@ on:
         - current
         - edge
         - vendor
-        default: 'jammy'
+        default: 'current'
 
       armbian_release:
         type: choice
