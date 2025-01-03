@@ -3,18 +3,6 @@ name: build onecloud-main
 on:
   repository_dispatch:
   workflow_dispatch:
-    inputs:  
-      armbian_repo:
-        description: "Choose framework repository"
-        required: false
-        default: "https://github.com/hy5528/build"
-      armbian_branch:
-        type: choice
-        description: 'Choose framework branch'
-        options:
-        - v23.11
-        - main
-        default: 'main'
 
 jobs:
   build:
@@ -25,7 +13,9 @@ jobs:
       - name: Install key 
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E  
-
+      - name: Checkout armbian/build
+        run: |
+          git clone --depth=1 --branch=main https://github.com/armbian/build
            
       - name: "Checkout current repository"
         uses: actions/checkout@v4
