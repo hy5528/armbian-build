@@ -4,6 +4,15 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
+      armbian_target:
+        type: choice
+        description: 'Build target'
+        required: false
+        options:
+        - kernel
+        - build
+        default: build
+        
       armbian_repo:
         description: "Choose framework repository"
         required: false
