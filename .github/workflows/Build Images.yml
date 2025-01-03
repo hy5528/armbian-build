@@ -20,7 +20,7 @@ on:
         description: "Choose framework branch"
         required: false
         options:
-        - legacy
+        - v23.11
         - main
         default: "main"
 
