@@ -13,9 +13,9 @@ jobs:
       - name: Install key 
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EE727D4449467F0E  
-      - name: Checkout build
+      - name: Checkout armbian/build
         run: |
-          git clone --depth=1 --branch=main https://github.com/hy5528/build
+           git clone --depth=1 --branch=main https://github.com/hy5528/build
            
       - name: "Checkout current repository"
         uses: actions/checkout@v4
@@ -27,8 +27,7 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-          sudo rm -r build/lib     
-          rsync -av current/patch/. build/
+          rsync -av current/userpatches/. build/userpatches/
           
       - name: Build
         run: |
