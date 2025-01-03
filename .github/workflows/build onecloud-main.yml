@@ -9,9 +9,13 @@ on:
         required: true
         default: 'https://github.com/armbian/build.git'
       repo_branch:
+        type: choice
         description: 'REPO BRANCH'
-        required: true
+        options:
+        - v23.11
+        - main
         default: 'main'
+
 jobs:
   build:
     runs-on: ubuntu-20.04
