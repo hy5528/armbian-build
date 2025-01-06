@@ -18,7 +18,7 @@ jobs:
     
       - name: Checkout armbian
         run: |
-           git clone --depth=1 --branch=main https://github.com/hy5528/ArmbianOS-Builder
+           git clone --depth=1 --branch=main https://github.com/bananapi-codehunterz-world/BPI-ArmbianOS-Builder
 
       - name: "Checkout current repository"
         uses: actions/checkout@v4
@@ -30,12 +30,13 @@ jobs:
       - name: "Copy userpatches to build folder"
         shell: bash
         run: |
-          sudo rm -r ArmbianOS-Builder/lib
-          rsync -av current/patch/. ArmbianOS-Builder/
+          sudo rm -r BPI-ArmbianOS-Builder/lib
+          rsync -av current/patch/. BPI-ArmbianOS-Builder/
+          sudo chmod 777 BPI-ArmbianOS-Builder/compile.sh
           
       - name: Build
         run: |
-          cd ArmbianOS-Builder
+          cd BPI-ArmbianOS-Builder
           # Don't update remote cache
           sudo ./compile.sh BOARD=onecloud BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,gpg,img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
           sudo chown $(id -u):$(id -g) -R output/
