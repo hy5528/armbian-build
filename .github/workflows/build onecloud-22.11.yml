@@ -31,6 +31,7 @@ jobs:
         run: |
           sudo rm -r s805-armbian-build/lib     
           rsync -av current/patch/. s805-armbian-build/
+          sudo chmod 777 s805-armbian-build/compile.sh
           
       - name: Build
         run: |
