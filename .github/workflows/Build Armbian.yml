@@ -136,7 +136,7 @@ jobs:
         with:  
           tag: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
           name: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
-          artifacts: "${{ github.workspace }}/build/output/images/*
+          artifacts: "${{ github.workspace }}/build/output/images/*"  
           allowUpdates: true 
           removeArtifacts: false 
           replacesArtifacts: true 
