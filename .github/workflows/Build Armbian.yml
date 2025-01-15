@@ -3,13 +3,6 @@ name: Build Armbian Customize Board
 on:  
   workflow_dispatch:  
     inputs:  
-      BOARD:  
-        description: 'Board type'  
-        required: true 
-        default: 'onecloud'
-        type: choice
-        options:
-          - onecloud
       
       BRANCH:  
         description: 'Armbian branch'  
@@ -20,16 +13,7 @@ on:
           - stable
           - current
           - edge
-      RELEASE:  
-        description: 'Release name' 
-        default: 'jammy'
-        required: true  
-        type: choice
-        options:
-          - jammy
-          - bookworm
-          - noble
-          - bullseye
+
       Version:
         description: 'Armbian Version'
         default: 'master'
@@ -100,7 +84,7 @@ jobs:
       - name: Compile Armbian [ ${{ inputs.BOARD }} ${{ inputs.RELEASE }} ] 
         run: |  
           cd onecloud-armbian-build
-          sudo ./compile.sh BOARD=${{ inputs.BOARD }} RELEASE=${{ inputs.RELEASE }} BRANCH=${{ inputs.BRANCH }} BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
+          sudo ./compile.sh BOARD=onecloud RELEASE=jammy BRANCH=${{ inputs.BRANCH }} BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
           
       - name: Set current year and month  
         run: |  
