@@ -88,7 +88,7 @@ jobs:
 
       - name: Extract boot and rootfs partitions
         run: |
-          diskimg=$(ls build/output/images/*.img)
+          diskimg=$(ls "${{ github.workspace }}/build/output/images/*.img)
           loop=$(sudo losetup --find --show --partscan $diskimg)
           sudo img2simg ${loop}p1 burn/boot.simg
           sudo img2simg ${loop}p2 burn/rootfs.simg
@@ -107,13 +107,13 @@ jobs:
           VERIFY:rootfs:normal:rootfs.VERIFY
           EOF
 
-          prefix=$(ls build/output/images/*.img | sed 's/\.img$//')
+          prefix=$(ls "${{ github.workspace }}/build/output/images/*.img | sed 's/\.img$//')
           burnimg=${prefix}.burn.img
           ./AmlImg pack $burnimg burn/
 
       - name: Hash and compress images
         run: |
-          for f in build/output/images/*.img; do
+          for f in "${{ github.workspace }}/build/output/images/*.img; do
             sha256sum "$f" | tee -a sha256sum
             xz --threads=0 --compress "$f"
           done
@@ -136,7 +136,7 @@ jobs:
         with:  
           tag: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
           name: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
-          artifacts: "${{ github.workspace }}/build/output/images/*"  
+          artifacts: "${{ github.workspace }}/build/output/images/*
           allowUpdates: true 
           removeArtifacts: false 
           replacesArtifacts: true 
