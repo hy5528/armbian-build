@@ -94,8 +94,8 @@ jobs:
         working-directory: /mnt/workdir
         run: |
           df -hT ${PWD}
-          git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/raysworld/onecloud-armbian-build.git build 
-          ln -sf /mnt/workdir/build $GITHUB_WORKSPACE/build
+          git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/raysworld/onecloud-armbian-build.git onecloud-armbian-build
+          ln -sf /mnt/workdir/build $GITHUB_WORKSPACE/onecloud-armbian-build
 
       - name: Compile Armbian [ ${{ inputs.BOARD }} ${{ inputs.RELEASE }} ] 
         run: |  
