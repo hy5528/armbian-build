@@ -49,7 +49,19 @@ jobs:
           df -hT ${PWD}
           git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/TooYoungTooSimp/s805-armbian-build.git build 
           ln -sf /mnt/workdir/build $GITHUB_WORKSPACE/build
-
+      - name: "Checkout current repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          clean: false
+          path: current
+          
+      - name: "Copy userpatches to build folder"
+        shell: bash
+        run: |
+          sudo rm -r /mnt/workdir/build/lib     
+          rsync -av current/patch/. /mnt/workdir/build/
+          sudo chmod 777 /mnt/workdir/build/compile.sh
           
   
       - name: Compile Armbian [ ${{ inputs.BOARD }} ${{ inputs.RELEASE }} ] 
