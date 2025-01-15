@@ -3,17 +3,6 @@ name: Build Armbian Customize Board
 on:  
   workflow_dispatch:  
     inputs:  
-      
-      BRANCH:  
-        description: 'Armbian branch'  
-        default: 'current'  
-        required: false 
-        type: choice 
-        options:
-          - stable
-          - current
-          - edge
-
       Version:
         description: 'Armbian Version'
         default: 'master'
@@ -24,32 +13,10 @@ on:
           - master
           - v24.11
           - v24.08
-      BUILD_DESKTOP:  
-        description: 'Build desktop environment'  
-        default: 'no'  
-        required: false  
-        type: choice
-        options:
-          - no
-      COMPRESS_OUTPUTIMAGE:  
-        description: 'Compress output image'  
-        default: 'sha,xz'  
-        required: false  
-        type: string  
-      BOOT_LOGO:  
-        description: 'Include boot logo'  
-        default: 'yes'  
-        required: false  
-        type: choice 
-        options:
-          - yes
-          - no
-env:
-  TZ: America/New_York
   
 jobs:  
   build-armbian:  
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-20.04 
     steps:  
       - name: Checkout  
         uses: actions/checkout@v3  
@@ -78,19 +45,18 @@ jobs:
         working-directory: /mnt/workdir
         run: |
           df -hT ${PWD}
-          git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/raysworld/onecloud-armbian-build.git build
+          git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/TooYoungTooSimp/s805-armbian-build.git build 
           ln -sf /mnt/workdir/build $GITHUB_WORKSPACE/build
 
+          
+  
       - name: Compile Armbian [ ${{ inputs.BOARD }} ${{ inputs.RELEASE }} ] 
         run: |  
           cd /mnt/workdir/build/ 
-          sudo ./compile.sh BOARD=onecloud RELEASE=jammy BRANCH=${{ inputs.BRANCH }} BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
+          sudo ./compile.sh BOARD=onecloud BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,gpg,img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
+          sudo chown $(id -u):$(id -g) -R output/
           
       - name: Set current year and month  
-        run: |  
-          echo "CURRENT_YEAR_MONTH=$(date +'%Y%m')" >> $GITHUB_ENV  
-
-       - name: Set current year and month  
         run: |  
           echo "CURRENT_YEAR_MONTH=$(date +'%Y%m')" >> $GITHUB_ENV  
 
