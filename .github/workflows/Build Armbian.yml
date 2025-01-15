@@ -69,7 +69,13 @@ jobs:
           cd /mnt/workdir/build/ 
           sudo ./compile.sh BOARD=onecloud BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,gpg,img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
           sudo chown $(id -u):$(id -g) -R output/
-          
+      - name: Install Dependents
+        run: |
+          sudo apt install img2simg
+
+          ver="v0.3.1"
+          curl -L -o ./AmlImg https://github.com/hzyitc/AmlImg/releases/download/v0.3.1/AmlImg_v0.3.1_linux_amd64
+          chmod +x ./AmlImg    
       - name: Set current year and month  
         run: |  
           echo "CURRENT_YEAR_MONTH=$(date +'%Y%m')" >> $GITHUB_ENV  
