@@ -1,4 +1,4 @@
-name: Build Armbian Customize Board
+name: Build Armbian-22.05
   
 on:  
   workflow_dispatch:  
@@ -9,10 +9,7 @@ on:
         required: false 
         type: choice
         options: 
-          - main
           - master
-          - v24.11
-          - v24.08
 env:
   TZ: Asia/Shanghai
   
