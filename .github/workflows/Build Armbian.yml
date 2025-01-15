@@ -94,12 +94,12 @@ jobs:
         working-directory: /mnt/workdir
         run: |
           df -hT ${PWD}
-          git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/raysworld/onecloud-armbian-build.git onecloud-armbian-build
-          ln -sf /mnt/workdir/build $GITHUB_WORKSPACE/onecloud-armbian-build
+          git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/raysworld/onecloud-armbian-build.git 
+          
 
       - name: Compile Armbian [ ${{ inputs.BOARD }} ${{ inputs.RELEASE }} ] 
         run: |  
-          cd /mnt/workdir/build/ 
+          cd onecloud-armbian-build
           sudo ./compile.sh BOARD=${{ inputs.BOARD }} RELEASE=${{ inputs.RELEASE }} BRANCH=${{ inputs.BRANCH }} BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
           
       - name: Set current year and month  
@@ -109,8 +109,8 @@ jobs:
       - name: Prepare Release Metadata
         run: |  
           # 提取版本号
-          # latest_image=$(ls ${{ github.workspace }}/build/output/images/Armbian-unofficial_*.img.xz | grep -oE 'Armbian-unofficial_[0-9.]+_.*' | sort -V | tail -n 1) 
-          latest_image=$(ls ${{ github.workspace }}/build/output/images/Armbian-unofficial_*.img.xz | sort -V | tail -n 1)
+          # latest_image=onecloud-armbian-build/output/images/Armbian-unofficial_*.img.xz | grep -oE 'Armbian-unofficial_[0-9.]+_.*' | sort -V | tail -n 1) 
+          latest_image=onecloud-armbian-build/output/images/Armbian-unofficial_*.img.xz | sort -V | tail -n 1)
           version=$(echo "$latest_image" | cut -d'_' -f2)  
   
           # 将版本号设置为环境变量  
@@ -122,7 +122,7 @@ jobs:
         with:  
           tag: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
           name: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
-          artifacts: "${{ github.workspace }}/build/output/images/*"  
+          artifacts: onecloud-armbian-build/output/images/*"  
           allowUpdates: true 
           removeArtifacts: false 
           replacesArtifacts: true 
