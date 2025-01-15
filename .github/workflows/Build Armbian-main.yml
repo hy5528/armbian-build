@@ -9,7 +9,6 @@ on:
         required: false 
         type: choice
         options: 
-          - all
           - main
           - v23.11
           - v24.05
