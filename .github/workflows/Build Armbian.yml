@@ -1,4 +1,4 @@
-name: Build Armbian All Borad
+name: Build Armbian Customize Board
   
 on:  
   workflow_dispatch:  
@@ -10,13 +10,14 @@ on:
         type: choice
         options:
           - onecloud
-         
+      
       BRANCH:  
         description: 'Armbian branch'  
         default: 'current'  
         required: false 
         type: choice 
         options:
+          - stable
           - current
           - edge
       RELEASE:  
@@ -64,11 +65,11 @@ env:
   
 jobs:  
   build-armbian:  
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest  
     steps:  
       - name: Checkout  
-        uses: actions/checkout@v3    
-
+        uses: actions/checkout@v3  
+      
       - name: Initialization environment
         id: init
         env:
@@ -93,17 +94,14 @@ jobs:
         working-directory: /mnt/workdir
         run: |
           df -hT ${PWD}
-          git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/raysworld/onecloud-armbian-build
-          ln -sf /mnt/workdir/build $GITHUB_WORKSPACE/onecloud-armbian-build
+          git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/raysworld/onecloud-armbian-build.git build 
+          ln -sf /mnt/workdir/build $GITHUB_WORKSPACE/build
 
-  
       - name: Compile Armbian [ ${{ inputs.BOARD }} ${{ inputs.RELEASE }} ] 
         run: |  
-          cd build/
-   
-              sudo ./compile.sh BOARD=$BOARD RELEASE=${{ inputs.RELEASE }} BRANCH=${{ inputs.BRANCH }} BUILD_MINIMAL=no BUILD_DESKTOP=${{ inputs.BUILD_DESKTOP }} \
-                KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=${{ inputs.COMPRESS_OUTPUTIMAGE }} BOOT_LOGO=${{ inputs.BOOT_LOGO }}  
-  
+          cd /mnt/workdir/build/ 
+          sudo ./compile.sh BOARD=${{ inputs.BOARD }} RELEASE=${{ inputs.RELEASE }} BRANCH=${{ inputs.BRANCH }} BUILD_MINIMAL=no BUILD_DESKTOP=${{ inputs.BUILD_DESKTOP }} \
+                           KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=${{ inputs.COMPRESS_OUTPUTIMAGE }} BOOT_LOGO=${{ inputs.BOOT_LOGO }} 
           
       - name: Set current year and month  
         run: |  
@@ -129,7 +127,7 @@ jobs:
           allowUpdates: true 
           removeArtifacts: false 
           replacesArtifacts: true 
-          token: ${{ secrets.MY_TOKEN }}  
+          token: ${{ secrets.GITHUB_TOKEN }}  
           body: |  
             ### Armbian Image Information  
             - Release: ${{ github.event.inputs.RELEASE }}    
@@ -137,4 +135,4 @@ jobs:
             ### Armbian Image Verification  
             - sha256sum   
           draft: false  
-          prerelease: false  
+          prerelease: false 
