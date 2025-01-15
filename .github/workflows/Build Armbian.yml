@@ -13,6 +13,8 @@ on:
           - master
           - v24.11
           - v24.08
+env:
+  TZ: America/New_York
   
 jobs:  
   build-armbian:  
