@@ -49,7 +49,6 @@ jobs:
           df -hT ${PWD}
           git clone -q --single-branch --depth=1 --branch=${{ github.event.inputs.Version }} https://github.com/TooYoungTooSimp/s805-armbian-build.git build 
           ln -sf /mnt/workdir/build $GITHUB_WORKSPACE/build
-          
       - name: "Checkout current repository"
         uses: actions/checkout@v4
         with:
@@ -70,11 +69,10 @@ jobs:
           cd /mnt/workdir/build/ 
           sudo ./compile.sh BOARD=onecloud BRANCH=current RELEASE=jammy BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_ONLY=no KERNEL_CONFIGURE=no COMPRESS_OUTPUTIMAGE=sha,gpg,img DOWNLOAD_MIRROR=china MAINLINE_MIRROR=tuna EXTRAWIFI=no
           sudo chown $(id -u):$(id -g) -R output/
-       
+          
       - name: Set current year and month  
         run: |  
           echo "CURRENT_YEAR_MONTH=$(date +'%Y%m')" >> $GITHUB_ENV  
-
       - name: Prepare Release Metadata
         run: |  
           # 提取版本号
@@ -87,11 +85,11 @@ jobs:
         
       - name: Upload image to Release  
         if: success() 
-        uses: softprops/action-gh-release@v2
+        uses: ncipollo/release-action@main
         with:  
           tag: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
           name: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
-          artifacts: "${{ github.workspace }}/build/output/images/*
+          artifacts: "${{ github.workspace }}/build/output/images/*"  
           allowUpdates: true 
           removeArtifacts: false 
           replacesArtifacts: true 
