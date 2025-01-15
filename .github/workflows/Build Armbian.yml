@@ -132,7 +132,7 @@ jobs:
         
       - name: Upload image to Release  
         if: success() 
-        uses: ncipollo/release-action@main
+        uses: softprops/action-gh-release@v2
         with:  
           tag: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
           name: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"  
