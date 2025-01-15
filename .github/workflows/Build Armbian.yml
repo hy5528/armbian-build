@@ -134,8 +134,8 @@ jobs:
         if: success() 
         uses: softprops/action-gh-release@v2
         with:  
-          tag: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"_5.9.0-docker  
-          name: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"_5.9.0-docker  
+          tag: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}" 
+          name: "Armbian_${{ github.event.inputs.Version }}_${{ github.event.inputs.RELEASE }}_${{ env.CURRENT_YEAR_MONTH }}"
           artifacts: "${{ github.workspace }}/build/output/images/*"  
           allowUpdates: true 
           removeArtifacts: false 
