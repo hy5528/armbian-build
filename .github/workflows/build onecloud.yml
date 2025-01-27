@@ -1,4 +1,4 @@
-name: build onecloud-22.11
+name: build onecloud
 
 on:
   repository_dispatch:
