@@ -401,9 +401,10 @@ aggregate_content() {
 }
 
 # set unique mounting directory
-SDCARD="${SRC}/.tmp/rootfs-${BRANCH}-${BOARD}-${RELEASE}-${BUILD_DESKTOP}-${BUILD_MINIMAL}"
-MOUNT="${SRC}/.tmp/mount-${BRANCH}-${BOARD}-${RELEASE}-${BUILD_DESKTOP}-${BUILD_MINIMAL}"
-DESTIMG="${SRC}/.tmp/image-${BRANCH}-${BOARD}-${RELEASE}-${BUILD_DESKTOP}-${BUILD_MINIMAL}"
+MOUNT_UUID=$(uuidgen)
+SDCARD="${SRC}/.tmp/rootfs-${MOUNT_UUID}"
+MOUNT="${SRC}/.tmp/mount-${MOUNT_UUID}"
+DESTIMG="${SRC}/.tmp/image-${MOUNT_UUID}"
 
 [[ -n $ATFSOURCE && -z $ATF_USE_GCC ]] && exit_with_error "Error in configuration: ATF_USE_GCC is unset"
 [[ -z $UBOOT_USE_GCC ]] && exit_with_error "Error in configuration: UBOOT_USE_GCC is unset"
