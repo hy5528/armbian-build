@@ -30,7 +30,7 @@ jobs:
         shell: bash
         run: |
           sudo rm -r build/lib     
-          rsync -av current/patch/. build/
+          rsync -av patch/. build/
           sudo chmod 777 build/compile.sh
           
       - name: Build
