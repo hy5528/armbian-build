@@ -15,7 +15,7 @@ on:
           - v24.05
           - v24.08
           - v24.11
-          - v25.2.1
+        
 jobs:
   build:
     runs-on: ubuntu-20.04
