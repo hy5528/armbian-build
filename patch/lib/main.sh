@@ -324,7 +324,7 @@ distro_menu "$RELEASE"
 unset options
 
 # don't show desktop option if we choose minimal build
-[[ $BUILD_MINIMAL == no ]] && BUILD_DESKTOP=no
+[[ $BUILD_MINIMAL == yes ]] && BUILD_DESKTOP=no
 
 if [[ $KERNEL_ONLY != yes && -z $BUILD_DESKTOP ]]; then
 
@@ -353,7 +353,7 @@ fi
 
 #prevent conflicting setup
 [[ $BUILD_DESKTOP == yes ]] && BUILD_MINIMAL=no
-[[ $BUILD_MINIMAL == no ]] && EXTERNAL=no
+[[ $BUILD_MINIMAL == yes ]] && EXTERNAL=no
 
 #shellcheck source=configuration.sh
 source "${SRC}"/lib/configuration.sh

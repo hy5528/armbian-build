@@ -301,11 +301,11 @@ install_common()
 
 	# install armbian-config
 	if [[ "${REPOSITORY_INSTALL}" != *armbian-config* ]]; then
-		if [[ $BUILD_MINIMAL != no]]; then
+		if [[ $BUILD_MINIMAL != yes ]]; then
 			install_deb_chroot "${DEB_STORAGE}/armbian-config_${REVISION}_all.deb"
 		fi
 	else
-		if [[ $BUILD_MINIMAL != no ]]; then
+		if [[ $BUILD_MINIMAL != yes ]]; then
 			install_deb_chroot "armbian-config" "remote"
 		fi
 	fi

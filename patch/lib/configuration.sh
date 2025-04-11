@@ -162,7 +162,7 @@ PACKAGE_LIST="bc cpufrequtils device-tree-compiler fping fake-hwclock psmisc chr
 # Non-essential packages for minimal build
 PACKAGE_LIST_ADDITIONAL="network-manager wireless-tools lsof htop mmc-utils wget nano sysstat net-tools resolvconf iozone3 jq libcrack2 cracklib-runtime curl"
 
-if [[ "$BUILD_MINIMAL" != "no"  ]]; then
+if [[ "$BUILD_MINIMAL" != "yes"  ]]; then
 	# Essential packages
 	PACKAGE_LIST="$PACKAGE_LIST bridge-utils build-essential fbset \
 		iw wpasupplicant sudo linux-base crda \

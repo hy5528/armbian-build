@@ -63,7 +63,7 @@ debootstrap_ng()
 	customize_image
 
 	# create list of installed packages for debug purposes
-	chroot $SDCARD /bin/bash -c "dpkg --get-selections" | grep -v deinstall | awk '{print $1}' | cut -f1 -d':' > $DEST/debug/installed-packages-${RELEASE}$([[ ${BUILD_MINIMAL} == no ]] && echo "-minimal")$([[ ${BUILD_DESKTOP} == yes  ]] && echo "-desktop").list 2>&1
+	chroot $SDCARD /bin/bash -c "dpkg --get-selections" | grep -v deinstall | awk '{print $1}' | cut -f1 -d':' > $DEST/debug/installed-packages-${RELEASE}$([[ ${BUILD_MINIMAL} == yes ]] && echo "-minimal")$([[ ${BUILD_DESKTOP} == yes  ]] && echo "-desktop").list 2>&1
 
 	# clean up / prepare for making the image
 	umount_chroot "$SDCARD"
@@ -110,7 +110,7 @@ create_rootfs_cache()
 		local packages_hash=$(get_package_list_hash "$(($ROOTFSCACHE_VERSION - $n))")
 		[[ -z ${FORCED_MONTH_OFFSET} ]] && FORCED_MONTH_OFFSET=${n}
 		local packages_hash=$(get_package_list_hash "$(date -d "$D +${FORCED_MONTH_OFFSET} month" +"%Y-%m-module$ROOTFSCACHE_VERSION" | sed 's/^0*//')")
-		local cache_type=$(if [[ ${BUILD_DESKTOP} == yes  ]]; then echo "xfce-desktop"; elif [[ ${BUILD_MINIMAL} == no  ]]; then echo "minimal"; else echo "cli";fi)
+		local cache_type=$(if [[ ${BUILD_DESKTOP} == yes  ]]; then echo "xfce-desktop"; elif [[ ${BUILD_MINIMAL} == yes  ]]; then echo "minimal"; else echo "cli";fi)
 		local cache_name=${RELEASE}-${cache_type}-${ARCH}.$packages_hash.tar.lz4
 		local cache_fname=${SRC}/cache/rootfs/${cache_name}
 		local display_name=${RELEASE}-${cache_type}-${ARCH}.${packages_hash:0:3}...${packages_hash:29}.tar.lz4
@@ -603,7 +603,7 @@ create_image()
 	# stage: create file name
 	local version="Armbian_${REVISION}_${BOARD^}_${RELEASE}_${BRANCH}_${VER/-$LINUXFAMILY/}"
 	[[ $BUILD_DESKTOP == yes ]] && version=${version}_desktop
-	[[ $BUILD_MINIMAL == no ]] && version=${version}_minimal
+	[[ $BUILD_MINIMAL == yes ]] && version=${version}_minimal
 	[[ $ROOTFS_TYPE == nfs ]] && version=${version}_nfsboot
 
 	if [[ $ROOTFS_TYPE != nfs ]]; then
