@@ -78,7 +78,7 @@ pack_upload ()
 	compression_type=""
 
 	[[ $BUILD_DESKTOP == yes ]] && version=${version}_desktop
-	[[ $BUILD_MINIMAL == yes ]] && version=${version}_minimal
+	[[ $BUILD_MINIMAL == no ]] && version=${version}_minimal
 	[[ $BETA == yes ]] && local subdir=nightly
 	[[ $RC == yes ]] && local subdir=rc
 
@@ -147,7 +147,7 @@ build_main ()
 	upload_image="${VENDOR}_$(cat "${SRC}"/VERSION)_${BOARD^}_${RELEASE}_${BRANCH}_*${VER/-$LINUXFAMILY/}"
 
 	[[ $BUILD_DESKTOP == yes ]] && upload_image=${upload_image}_desktop
-	[[ $BUILD_MINIMAL == yes ]] && upload_image=${upload_image}_minimal
+	[[ $BUILD_MINIMAL == no ]] && upload_image=${upload_image}_minimal
 
 	touch "/run/armbian/${VENDOR}_${BOARD^}_${BRANCH}_${RELEASE}_${DESKTOP_ENVIRONMENT}_${BUILD_DESKTOP}_${BUILD_MINIMAL}.pid";
     LOG_SUBPATH="debug/${VENDOR}/${BOARD^}/${BRANCH}/${RELEASE}/${DESKTOP_ENVIRONMENT}_${BUILD_DESKTOP}_${BUILD_MINIMAL}"
@@ -321,7 +321,7 @@ function build_all()
 		BUILD_MINIMAL="no"
 
 		[[ ${BUILD_TARGET} == "desktop" && ${BSP_BUILD} != "yes" ]] && BUILD_DESKTOP="yes"
-		[[ ${BUILD_TARGET} == "minimal" ]] && BUILD_MINIMAL="yes"
+		[[ ${BUILD_TARGET} == "minimal" ]] && BUILD_MINIMAL="no"
 		[[ ${BSP_BUILD} == yes ]] && BUILD_STABILITY=$STABILITY
 
 		# create a file and put grep style list of the one that must be skipped: sunxi\|sunxi64
